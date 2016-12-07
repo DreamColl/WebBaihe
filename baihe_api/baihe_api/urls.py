@@ -11,5 +11,5 @@ router.register(r'users', user_views.UserViewSet)
 
 urlpatterns = [
     url(r'^', include(router.urls)),
-    url(r'^api-token-auth/', views.obtain_auth_token)
+    url(r'^login/', views.obtain_auth_token)
 ]
