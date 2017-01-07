@@ -1,21 +1,22 @@
 <template>
   <div id="app">
     <img src="./assets/logo.png">
-    <hello></hello>
+    <!--<hello></hello>-->
+    <enrty></enrty>
   </div>
 </template>
-
 <script>
-import Hello from './components/Hello'
+// import Hello from './components/Hello'
+import Enrty from './components/Entry'
 
 export default {
   name: 'app',
   components: {
-    Hello
+    // Hello
+    Enrty
   }
 }
 </script>
-
 <style>
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
