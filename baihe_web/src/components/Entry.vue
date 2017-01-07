@@ -4,7 +4,8 @@
       <ol>
         <ul v-for="(item,index) in items">
           <!--input-->
-          <a>{{ item.question }}</a><br v-if="item.type != 'select'">
+          <a>{{ item.question }}</a>
+          <br v-if="item.type != 'select'">
           <input :type="item.type" v-if="item.type == 'input' "></input>
           <!--text-->
           <textarea :type="item.type" v-if="item.type == 'textarea' "></textarea>
@@ -19,7 +20,7 @@
             </input>
           </a>
           <!--radio-->
-          <a v-if="item.type == 'radio' " v-for="(op,index) in item.options" v-model="picked">
+          <a v-if="item.type == 'radio' " v-for="(op,index) in item.options">
             <label :for="op">{{ op }}</label>
             <input :value="op" :name="item.question" :type="item.type">
             </input>
@@ -37,7 +38,8 @@ export default {
   name: 'entry',
   data() {
     return {
-      items: data
+      items: data,
+      picked: []
     }
   },
   methods: {
@@ -80,7 +82,8 @@ var data = [{
   margin: 0;
   padding: 0;
 }
-ul{
+
+ul {
   margin: 10px
 }
 </style>
