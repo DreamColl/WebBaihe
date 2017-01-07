@@ -1,33 +1,33 @@
 <template>
   <div class="entry">
     <form action="post">
-      <div v-for="(item,index) in items">
-        <!--input-->
-        <a>{{ item.question }}</a>
-        <input :type="item.type" v-if="item.type == 'input' "></input>
-        <!--text-->
-        <textarea :type="item.type" v-if="item.type == 'textarea' "></textarea>
-        <!--select-->
-        <select v-if="item.type == 'select' ">
-          <option v-for="(op,index) in item.options">{{ op }}</option>
-        </select>
-        <!--checkbox-->
-        <a v-if="item.type == 'checkbox' " :value="op" v-for="(op,index) in item.options">
-          <label for="">{{ op }}</label>
-          <input :type="item.type">
-          </input>
-        </a>
-        <!--radio-->
-        <a v-if="item.type == 'radio' " v-for="(op,index) in item.options" v-model="picked">
-          <label :for="op">{{ op }}</label>
-          <input :value="op" :name="item.question" :type="item.type">
-          </input>
-        </a>
-        <!--<span v-if="item.type == 'radio'">Picked: {{ item.picked }}</span>-->
-        <!--<input :type="item.type" v-if="item.type == 'radio' " :value="op" v-for="(op,index) in item.options"> {{ op }}-->
-        <!--file-->
-        <input :type="item.type" v-if="item.type == 'file'">
-      </div>
+      <ol>
+        <ul v-for="(item,index) in items">
+          <!--input-->
+          <a>{{ item.question }}</a><br v-if="item.type != 'select'">
+          <input :type="item.type" v-if="item.type == 'input' "></input>
+          <!--text-->
+          <textarea :type="item.type" v-if="item.type == 'textarea' "></textarea>
+          <!--select-->
+          <select v-if="item.type == 'select' ">
+            <option v-for="(op,index) in item.options">{{ op }}</option>
+          </select>
+          <!--checkbox-->
+          <a v-if="item.type == 'checkbox' " :value="op" v-for="(op,index) in item.options">
+            <label for="">{{ op }}</label>
+            <input :type="item.type">
+            </input>
+          </a>
+          <!--radio-->
+          <a v-if="item.type == 'radio' " v-for="(op,index) in item.options" v-model="picked">
+            <label :for="op">{{ op }}</label>
+            <input :value="op" :name="item.question" :type="item.type">
+            </input>
+          </a>
+          <!--file-->
+          <input :type="item.type" v-if="item.type == 'file'">
+        </ul>
+      </ol>
     </form>
     <input type="submit">
   </div>
@@ -60,12 +60,12 @@ var data = [{
   },
   {
     type: 'checkbox',
-    question: '地区(复选)：',
+    question: '地区(复选)',
     options: ['华北', '东部', '中部', '西部', '东北'],
   },
   {
     type: 'radio',
-    question: '地区（单选）：',
+    question: '地区（单选）',
     options: ['华北', '东部', '中部', '西部', '东北'],
     picked: '双向绑定TODO',
   },
@@ -75,3 +75,12 @@ var data = [{
   }
 ]
 </script>
+<style lang="scss">
+* {
+  margin: 0;
+  padding: 0;
+}
+ul{
+  margin: 10px
+}
+</style>
