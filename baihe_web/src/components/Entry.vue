@@ -6,7 +6,7 @@
           <!--input-->
           <a>{{ item.question }}</a>
           <br v-if="item.type != 'select'">
-          <input type="text" v-if="item.type == 'text'" v-model=" "></input>
+          <input type="text" v-if="item.type == 'text'"></input>
           <!--text-->
           <textarea type="textarea" v-if="item.type == 'textarea' "></textarea>
           <!--select-->
