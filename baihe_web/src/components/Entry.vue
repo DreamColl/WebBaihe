@@ -6,9 +6,9 @@
           <!--input-->
           <a>{{ item.question }}</a>
           <br v-if="item.type != 'select'">
-          <input :type="item.type" v-if="item.type == 'text'"></input>
+          <input type="text" v-if="item.type == 'text'" v-model=" "></input>
           <!--text-->
-          <textarea :type="item.type" v-if="item.type == 'textarea' "></textarea>
+          <textarea type="textarea" v-if="item.type == 'textarea' "></textarea>
           <!--select-->
           <select v-if="item.type == 'select' ">
             <option v-for="(op,index) in item.options">{{ op }}</option>
@@ -16,17 +16,17 @@
           <!--checkbox-->
           <a v-if="item.type == 'checkbox' " :value="op" v-for="(op,index) in item.options">
             <label for="">{{ op }}</label>
-            <input :type="item.type">
+            <input type="checkbox">
             </input>
           </a>
           <!--radio-->
           <a v-if="item.type == 'radio' " v-for="(op,index) in item.options">
             <label :for="op">{{ op }}</label>
-            <input :value="op" :name="item.question" :type="item.type">
+            <input type="radio" :value="op" :name="item.question">
             </input>
           </a>
           <!--file-->
-          <input :type="item.type" v-if="item.type == 'file'">
+          <input type="file" v-if="item.type == 'file'">
         </ul>
       </ol>
     </form>
