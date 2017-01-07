@@ -6,7 +6,7 @@
           <!--input-->
           <a>{{ item.question }}</a>
           <br v-if="item.type != 'select'">
-          <input :type="item.type" v-if="item.type == 'input' "></input>
+          <input :type="item.type" v-if="item.type == 'text'"></input>
           <!--text-->
           <textarea :type="item.type" v-if="item.type == 'textarea' "></textarea>
           <!--select-->
@@ -39,7 +39,6 @@ export default {
   data() {
     return {
       items: data,
-      picked: []
     }
   },
   methods: {
@@ -48,7 +47,7 @@ export default {
 }
 
 var data = [{
-  type: 'input',
+  type: 'text',
   question: '队名'
 }, {
   type: 'textarea',
