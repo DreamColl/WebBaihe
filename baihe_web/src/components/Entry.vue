@@ -48,34 +48,28 @@ export default {
 }
 
 var data = [{
-    type: 'input',
-    question: '队名'
-  },
-  {
-    type: 'textarea',
-    question: '测试多行文本'
-  },
-  {
-    type: 'select',
-    question: '地区',
-    options: ['华北', '东部', '中部', '西部', '东北']
-  },
-  {
-    type: 'checkbox',
-    question: '地区(复选)',
-    options: ['华北', '东部', '中部', '西部', '东北'],
-  },
-  {
-    type: 'radio',
-    question: '地区（单选）',
-    options: ['华北', '东部', '中部', '西部', '东北'],
-    picked: '双向绑定TODO',
-  },
-  {
-    type: 'file',
-    question: '上传文件：',
-  }
-]
+  type: 'input',
+  question: '队名'
+}, {
+  type: 'textarea',
+  question: '测试多行文本'
+}, {
+  type: 'select',
+  question: '地区',
+  options: ['华北', '东部', '中部', '西部', '东北']
+}, {
+  type: 'checkbox',
+  question: '地区(复选)',
+  options: ['华北', '东部', '中部', '西部', '东北'],
+}, {
+  type: 'radio',
+  question: '地区（单选）',
+  options: ['华北', '东部', '中部', '西部', '东北'],
+  picked: '双向绑定TODO',
+}, {
+  type: 'file',
+  question: '上传文件：',
+}]
 </script>
 <style lang="scss">
 * {
