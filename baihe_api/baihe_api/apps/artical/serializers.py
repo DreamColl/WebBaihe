@@ -7,4 +7,4 @@ class ArticalSerializers(serializers.ModelSerializer):
     class Meta:
         model = Artical
         fields = '__all__'
-        read_only_fields = ('author',)
+        read_only_fields = ('author', 'read_count', 'share_count')
