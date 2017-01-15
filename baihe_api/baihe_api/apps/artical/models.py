@@ -2,7 +2,7 @@ from django.db import models
 
 
 class Artical(models.Model):
-    title = models.CharField(max_length=191)
+    title = models.CharField(max_length=128)
     content = models.TextField()
     author = models.ForeignKey('baihe_user.BaiheUser', related_name='articals')
     read_count = models.PositiveIntegerField(default=0)

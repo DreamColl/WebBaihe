@@ -33,10 +33,10 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
+    'django.contrib.sessions',
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
-    'rest_framework_swagger',
     'baihe_api.apps.artical',
     'baihe_api.apps.baihe_user',
     'baihe_api.apps.form_builder',

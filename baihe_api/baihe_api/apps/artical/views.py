@@ -12,5 +12,4 @@ class ArticalViewSet(viewsets.ModelViewSet):
     permission_classes = (IsAdminOrReadOnly, )
 
     def perform_create(self, serializer):
-        print(self.request.user)
         serializer.save(author=self.request.user)
