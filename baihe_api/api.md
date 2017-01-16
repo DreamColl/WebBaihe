@@ -259,6 +259,12 @@ Permission: **none**
 
 Permission: **none**
 
+#### Paramaters
+
+| Field  | Type | Description       |
+| ------ | ---- | ----------------- |
+| upload | file | 必填，应该用form-data上传 |
+
 #### Response
 
 ```json
@@ -275,6 +281,6 @@ Permission: **none**
 
 Permission: **none**
 
-#### Response
+#### Paramaters、Response
 
 同上
