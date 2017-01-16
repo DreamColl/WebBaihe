@@ -40,9 +40,10 @@ INSTALLED_APPS = (
     'baihe_api.apps.artical',
     'baihe_api.apps.baihe_user',
     'baihe_api.apps.form_builder',
+    'baihe_api.apps.upload',
 )
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE = (
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',

@@ -246,3 +246,35 @@ Permission: **none**
 **DELETE|PUT|PATCH /api/form/:id/**
 
 参数参考增查
+
+
+
+## 文件上传
+
+考虑安全性和存储便捷性，文件存储不应该存到服务器硬盘里，应该存到七牛云会比较好。
+
+### 文件上传
+
+**POST /api/upload/file/**
+
+Permission: **none**
+
+#### Response
+
+```json
+{
+    "id": 6,
+    "created": "2017-01-16T14:54:19.318576Z",
+    "upload": "http://127.0.0.1:8000/files/2017/01/16/requirements.txt"
+}
+```
+
+### 图片上传
+
+**POST /api/upload/image/**
+
+Permission: **none**
+
+#### Response
+
+同上
