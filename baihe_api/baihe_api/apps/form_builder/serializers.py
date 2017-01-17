@@ -23,6 +23,32 @@ class BaiheFormSerializers(serializers.HyperlinkedModelSerializer):
             )
         return value
 
+    def validate_structure(self, value):
+        '''
+        @ field_type
+        @ label_name
+        @ placeholder
+        @ choices
+        @ default
+        @ required
+        @ max_length
+        '''
+
+        if not isinstance(value, dict):
+            raise serializers.ValidationError(
+                'structure must be a dict not a `%s`' % type(value)
+            )
+        i = 0
+        for field_order, field in value:
+            if field_order != i:
+                raise serializers.ValidationError(
+                    'field order not consistent at `%d`' % i
+                )
+            for key, v in field:
+                pass
+            i += 1
+        return value
+
     def validate(self, data):
         if data['start_time'] >= data['end_time']:
             raise serializers.ValidationError(
