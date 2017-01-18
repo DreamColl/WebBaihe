@@ -1,13 +1,63 @@
+import traceback
+
 from django.utils import timezone
 from rest_framework import serializers
+
 from .models import BaiheForm, BaiheFormData
+
+FIELD_TYPE_CHOICES = ['text', 'phone', 'email', 'textarea',
+                      'radio', 'select', 'checkbox', 'file', 'image']
+VALIDATION_CHOICES = ['max_length', 'min_length']
+
+
+class FormStructureSerializers(serializers.Serializer):
+    field_type = serializers.ChoiceField(FIELD_TYPE_CHOICES)
+    label_name = serializers.CharField(max_length=100)
+    placeholder = serializers.CharField(
+        max_length=100,
+        required=False,
+        allow_blank=True
+    )
+    choices = serializers.CharField(
+        max_length=100,
+        required=False,
+        allow_blank=True
+    )
+    default = serializers.CharField(
+        max_length=100,
+        required=False,
+        allow_blank=True
+    )
+    required = serializers.BooleanField(initial=True, required=False)
+    validation = serializers.ChoiceField(
+        VALIDATION_CHOICES,
+        required=False,
+        allow_blank=True
+    )
+    addable = serializers.BooleanField(required=False)
+
+    def validate(self, data):
+        if data['field_type'] in ['radio', 'select', 'checkbox'] and not data.get('choices'):
+            raise serializers.ValidationError(
+                'choices not provided for `%s` field' % data['field_type']
+            )
+        return data
 
 
 class BaiheFormSerializers(serializers.HyperlinkedModelSerializer):
+    structure = FormStructureSerializers(many=True)
 
     class Meta:
         model = BaiheForm
         fields = '__all__'
+
+    def create(self, validated_data):
+        structure = validated_data.pop('structure')
+        form = BaiheForm(**validated_data)
+        form.structure = structure
+        form.save()
+
+        return form
 
     def validate_start_time(self, value):
         if value < timezone.now():
@@ -21,45 +71,6 @@ class BaiheFormSerializers(serializers.HyperlinkedModelSerializer):
             raise serializers.ValidationError(
                 'end_time must be after current time'
             )
-        return value
-
-    def validate_structure(self, value):
-        '''
-        @ field_type
-        @ label_name
-        @ placeholder
-        @ choices
-        @ default
-        @ required
-        @ validation
-        '''
-
-        if not isinstance(value, dict):
-            raise serializers.ValidationError(
-                'structure must be a dict not a `%s`' % type(value)
-            )
-        i = 0
-        for field_order, field in value:
-            if field_order != i:
-                raise serializers.ValidationError(
-                    'field order not consistent at `%d`' % i
-                )
-            i += 1
-
-            key_has_field_type = False
-            key_has_label_name = False
-
-            for key, v in field:
-                if key == 'field_type' and v:
-                    key_has_field_type = True
-                elif key == 'label_name' and v:
-                    key_has_label_name = True
-
-            if not (key_has_field_type and key_has_label_name):
-                raise serializers.ValidationError(
-                    'field_type and label_name required'
-                )
-
         return value
 
     def validate(self, data):
