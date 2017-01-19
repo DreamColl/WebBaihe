@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.conf.urls import include, url
 from django.conf.urls.static import static
+from django.contrib import admin
 from rest_framework.authtoken import views
 from rest_framework.routers import DefaultRouter
 
@@ -20,4 +21,5 @@ router.register(r'upload/image', upload_views.ImageViewSet)
 urlpatterns = [
     url(r'^api/', include(router.urls)),
     url(r'^token/', views.obtain_auth_token),
+    url(r'^admin/', admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
