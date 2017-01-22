@@ -1,10 +1,9 @@
 <template lang="pug">
-  #app
-    router-view
+  .not-found 没找到页面呢喵
 </template>
 <script lang="babel">
 export default {
-  name: 'app',
+  name: 'not-found',
 }
 </script>
 <style lang="stylus">
