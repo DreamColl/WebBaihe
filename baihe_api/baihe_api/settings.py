@@ -39,6 +39,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
+    'baihe_api.common',
     'baihe_api.apps.artical',
     'baihe_api.apps.baihe_user',
     'baihe_api.apps.form_builder',
@@ -91,13 +92,13 @@ REST_FRAMEWORK = {
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 
 DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.postgresql',
-    #     'NAME': 'baihe',
-    #     'HOST': 'localhost',
-    #     'USER': 'baihe',
-    #     'PASSWORD': '123456',
-    # }
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'baihe',
+        'HOST': 'localhost',
+        'USER': 'baihe',
+        'PASSWORD': '123456',
+    }
     # 'default': {
     #     'ENGINE': 'django.db.backends.mysql',
     #     'NAME': 'baihe',
@@ -107,19 +108,19 @@ DATABASES = {
     #     'PORT': '3306',
     #     'OPTIONS': {'charset': 'utf8mb4'}
     # }
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    # }
 }
 
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'zh-hans'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Shanghai'
 
 USE_I18N = True
 

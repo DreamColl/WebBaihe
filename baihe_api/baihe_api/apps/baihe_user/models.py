@@ -27,7 +27,7 @@ class BaiheUserManager(UserManager):
             password=password,
             nickname=nickname,
         )
-        user.is_admin = True
+        user.is_superuser = True
         user.save(using=self._db)
         return user
 
@@ -35,9 +35,6 @@ class BaiheUserManager(UserManager):
 class BaiheUser(AbstractUser):
     username = models.CharField(max_length=20, unique=True)
     nickname = models.CharField(max_length=20, unique=True)
-    is_active = models.BooleanField(default=True)
-    is_admin = models.BooleanField(default=False)
-    created = models.DateTimeField(auto_now_add=True)
 
     objects = BaiheUserManager()
 
@@ -55,7 +52,7 @@ class BaiheUser(AbstractUser):
 
     @property
     def is_staff(self):
-        return self.is_admin
+        return self.is_superuser
 
 
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
