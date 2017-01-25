@@ -22,4 +22,5 @@ urlpatterns = [
     url(r'^api/', include(router.urls)),
     url(r'^token/', views.obtain_auth_token),
     url(r'^admin/', admin.site.urls),
+    url(r'^ckeditor/', include('ckeditor_uploader.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

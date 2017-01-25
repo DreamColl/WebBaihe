@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.utils import timezone
 
 from baihe_api.apps.form_builder.models import BaiheForm, FormField
-
+from baihe_api.apps.artical.models import Artical
 
 class FieldsInline(admin.TabularInline):
     model = FormField
@@ -44,3 +44,5 @@ class FormAdmin(admin.ModelAdmin):
     def export_form(self, request, queryset):
         response = HttpResponse(content_type="application/json")
         return response
+
+admin.site.register(Artical)

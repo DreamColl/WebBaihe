@@ -45,6 +45,7 @@ INSTALLED_APPS = (
     'baihe_api.apps.form_builder',
     'baihe_api.apps.upload',
     'baihe_api.baihe_admin',
+    'ckeditor'
 )
 
 MIDDLEWARE = (
@@ -92,13 +93,13 @@ REST_FRAMEWORK = {
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'baihe',
-        'HOST': 'localhost',
-        'USER': 'baihe',
-        'PASSWORD': '123456',
-    }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql',
+    #     'NAME': 'baihe',
+    #     'HOST': 'localhost',
+    #     'USER': 'baihe',
+    #     'PASSWORD': '123456',
+    # }
     # 'default': {
     #     'ENGINE': 'django.db.backends.mysql',
     #     'NAME': 'baihe',
@@ -108,10 +109,10 @@ DATABASES = {
     #     'PORT': '3306',
     #     'OPTIONS': {'charset': 'utf8mb4'}
     # }
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    # }
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
 }
 
 
@@ -133,6 +134,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# MEDIA_URL = '/uploads/'
+# MEIDA_ROOT = os.path.join(BASE_DIR, 'uploads')
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+CKEDITOR_UPLOAD_PATH = "article_images"
 
 try:
     from .local_settings import *
