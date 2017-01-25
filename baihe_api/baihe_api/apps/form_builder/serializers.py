@@ -1,14 +1,14 @@
 from django.utils import timezone
 from rest_framework import serializers
 
-from .models import BaiheForm, BaiheFormData
+from .models import BaiheForm, FormData
 
 FIELD_TYPE_CHOICES = ['text', 'phone', 'email', 'textarea',
                       'radio', 'select', 'checkbox', 'file', 'image']
 VALIDATION_CHOICES = ['max_length', 'min_length']
 
 
-class FormStructureSerializers(serializers.Serializer):
+class FormFieldSerializers(serializers.Serializer):
     field_type = serializers.ChoiceField(FIELD_TYPE_CHOICES)
     label_name = serializers.CharField(max_length=100)
     placeholder = serializers.CharField(
@@ -43,19 +43,19 @@ class FormStructureSerializers(serializers.Serializer):
 
 
 class BaiheFormSerializers(serializers.HyperlinkedModelSerializer):
-    structure = FormStructureSerializers(many=True)
+    # fields = FormFieldSerializers(many=True)
 
     class Meta:
         model = BaiheForm
         fields = '__all__'
 
-    def create(self, validated_data):
-        structure = validated_data.pop('structure')
-        form = BaiheForm(**validated_data)
-        form.structure = structure
-        form.save()
+    # def create(self, validated_data):
+    #     structure = validated_data.pop('structure')
+    #     form = BaiheForm(**validated_data)
+    #     form.structure = structure
+    #     form.save()
 
-        return form
+    #     return form
 
     def validate_start_time(self, value):
         if value < timezone.now():
@@ -82,6 +82,6 @@ class BaiheFormSerializers(serializers.HyperlinkedModelSerializer):
 class BaiheFormDataSerializers(serializers.HyperlinkedModelSerializer):
 
     class Meta:
-        model = BaiheFormData
+        model = FormData
         fields = '__all__'
         read_only_fields = ('user',)

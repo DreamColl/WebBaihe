@@ -1,6 +1,8 @@
 from django.conf import settings
 from django.db import models
+from django.shortcuts import reverse
 
+from baihe_api.common.excel import get_form_excel_response
 from baihe_api.common.models import ListField, PhoneField
 
 FIELD_TYPE_CHOICES = [
@@ -18,16 +20,16 @@ FIELD_TYPE_CHOICES = [
 ]
 
 
-class FieldType(models.Model):
-    type = models.CharField(max_length=20, unique=True)
-    name = models.CharField(max_length=20, unique=True)
+# class FieldType(models.Model):
+#     type = models.CharField(max_length=20, unique=True)
+#     name = models.CharField(max_length=20, unique=True)
 
-    class Meta:
-        verbose_name = '字段类型'
-        verbose_name_plural = '字段类型'
+#     class Meta:
+#         verbose_name = '字段类型'
+#         verbose_name_plural = '字段类型'
 
-    def __str__(self):
-        return self.name
+#     def __str__(self):
+#         return self.name
 
 
 class BaiheForm(models.Model):
@@ -50,7 +52,9 @@ class FormField(models.Model):
     form = models.ForeignKey(
         BaiheForm, related_name='fields', verbose_name="表单")
     order = models.PositiveSmallIntegerField(verbose_name="排序")
-    field_type = models.ForeignKey(FieldType, verbose_name="字段类型")
+    # field_type = models.ForeignKey(FieldType, verbose_name="字段类型")
+    field_type = models.CharField(
+        max_length=10, choices=FIELD_TYPE_CHOICES, verbose_name="字段类型")
     label_name = models.CharField(max_length=100, verbose_name="字段名称")
     placeholder = models.CharField(
         max_length=100, default='', blank=True, null=True, verbose_name="占位显示")
@@ -68,11 +72,11 @@ class FormField(models.Model):
         return self.label_name
 
 
-class BaiheFormData(models.Model):
+class FormData(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
                              null=True, verbose_name="用户")
     form = models.ForeignKey(
-        BaiheForm, verbose_name="表单")
+        BaiheForm, related_name='datas', verbose_name="表单")
     created = models.DateTimeField(auto_now_add=True, verbose_name="创建时间")
     updated = models.DateTimeField(auto_now=True, verbose_name="更新时间")
 
@@ -80,15 +84,21 @@ class BaiheFormData(models.Model):
         verbose_name = '表单数据'
         verbose_name_plural = '表单数据'
 
+    def get_field_datas(self):
+        data = {}
+        for value in self.values.all():
+            data[str(value.field.order)] = value.get_value()
+        return data
+
     def __str__(self):
         return self.form.name
 
 
 class FormDataValue(models.Model):
     form_data = models.ForeignKey(
-        BaiheFormData, related_name='data', verbose_name="表单数据")
+        FormData, related_name='values', verbose_name="表单数据")
     field = models.ForeignKey(
-        FormField, related_name='data', verbose_name="字段")
+        FormField, related_name='values', verbose_name="字段")
     text = models.CharField(max_length=100, null=True, blank=True)
     textarea = models.TextField(null=True, blank=True)
     phone = PhoneField(null=True, blank=True)

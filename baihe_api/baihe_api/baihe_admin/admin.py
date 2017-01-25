@@ -1,9 +1,10 @@
 from django.contrib import admin
-from django.http import HttpResponse
 from django.utils import timezone
+from django.shortcuts import reverse
 
 from baihe_api.apps.form_builder.models import BaiheForm, FormField
 from baihe_api.apps.artical.models import Artical
+
 
 class FieldsInline(admin.TabularInline):
     model = FormField
@@ -34,15 +35,16 @@ class FormStatusListFilter(admin.SimpleListFilter):
 
 @admin.register(BaiheForm)
 class FormAdmin(admin.ModelAdmin):
-    list_display = ['name', 'comment', 'start_time', 'end_time']
+    list_display = ['name', 'comment',
+                    'start_time', 'end_time', 'export_excel']
     list_filter = [FormStatusListFilter]
     search_fields = ['name']
-    actions = ['export_form']
 
     inlines = [FieldsInline]
 
-    def export_form(self, request, queryset):
-        response = HttpResponse(content_type="application/json")
-        return response
+    def export_excel(self, obj):
+        url = reverse('baiheform-export', kwargs={'pk': obj.pk})
+        return url
+
 
 admin.site.register(Artical)

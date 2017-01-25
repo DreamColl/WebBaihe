@@ -13,7 +13,7 @@ from baihe_api.apps.upload import views as upload_views
 router = DefaultRouter()
 router.register(r'articals', artical_views.ArticalViewSet)
 router.register(r'form', form_views.BaiheFormViewSet)
-router.register(r'form_data', form_views.BaiheFormDataViewSet)
+# router.register(r'form_data', form_views.BaiheFormDataViewSet)
 router.register(r'users', user_views.UserViewSet)
 router.register(r'upload/file', upload_views.FileViewSet)
 router.register(r'upload/image', upload_views.ImageViewSet)
